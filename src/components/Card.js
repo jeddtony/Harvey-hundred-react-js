@@ -13,8 +13,8 @@ export default function Card(props) {
     return (
         <div data-index={props.index} data-cardtype={props.type} onClick={clickMe } className={ 'card card--'+props.type+' card--'+props.position } > 
         <div className="card__inner"> 
-            <div className="card__face card__front"> 
-              
+            <div className="card__face card__front" style={{textAlign: "center"}}> 
+              <h1>{props.index + 1}</h1>
             </div> 
             <div className="card__face card__back"> 
                
