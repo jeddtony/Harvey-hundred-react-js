@@ -5,14 +5,14 @@ import Card from './components/Card';
 import HomeScreen from './components/HomeScreen';
 
 export default function App () {
-    const uniqueCards = ['pig','fish','cactus','corn','shroom'];
+    // const uniqueCards = ['pig','fish','cactus','corn','shroom'];
+    const uniqueCards = ['pig','fish','cactus','corn']
     const numCardsToMatch = 2;
 
     const [cards, setCards] = useState([]);
     const [gameOver, setGameOver] = useState(1);
     const [gamesWon, setGamesWon] = useState(0);
 
-    const [showHome, setShowHome] = useState(false);
     const[selectedCards, setSelectedCards] = useState([]);
     
     const [ignoreCardClicks, setIgnoreCardClicks] = useState(false);
@@ -44,9 +44,10 @@ export default function App () {
     }
 
     const multiplyCards = (cards, multiplier) => {
-        let loopTimes = multiplier - 1;
+        // let loopTimes = multiplier - 1;
+        let loopTimes = 3
         let multiplied = cards;
-        for (var i = 0; i < loopTimes; i++){
+        for (let i = 0; i < loopTimes; i++){
           multiplied = _.concat(multiplied,cards);
     }
     return multiplied;
@@ -145,12 +146,22 @@ export default function App () {
         <div className="memory-app">
            <HomeScreen gameOver={gameOver} gamesWon={gamesWon} clickEvent={shuffleCards} />  
 <div className="cards">
-           {cards.map(function(thisCard) {
-            return <Card index={cardIndex++} clickEvent={pickCard} position={thisCard.position} type={thisCard.type}/>
+           {cards.map((thisCard, index)=> {
+            // if(index === 1) {
+              return (
+                <>
+                
+              <Card key={index} index={cardIndex++} clickEvent={pickCard} position={thisCard.position} type={thisCard.type}/> 
+            
+             </>
+
+              )
+            // }
+          
             })}
        </div> 
 
-        </div>
+         </div> 
     )
  
 }
