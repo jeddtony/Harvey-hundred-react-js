@@ -170,6 +170,7 @@ body::after{
   flex-wrap: wrap;
    align-items: center;
   justify-content: center;
+  flex-grow: 3;
 }
 
 .card{
@@ -316,3 +317,14 @@ body::after{
   //&::after{ content: "Fish"; }
 }
 
+
+// The div containing both cards and timer
+.main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.game-details {
+  flex-grow: 2;
+}

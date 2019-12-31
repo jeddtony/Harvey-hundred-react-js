@@ -4,6 +4,7 @@ import _ from 'lodash';
 import Card from './components/Card';
 import HomeScreen from './components/HomeScreen';
 import Chronograph from './components/Chronograph';
+import moment from 'moment';
 
 export default function App () {
     // const uniqueCards = ['pig','fish','cactus','corn','shroom'];
@@ -17,6 +18,7 @@ export default function App () {
     const[selectedCards, setSelectedCards] = useState([]);
     
     const [ignoreCardClicks, setIgnoreCardClicks] = useState(false);
+    const [timeStarted, setTimeStarted] = useState()
 
     let cardIndex = 0
 
@@ -40,6 +42,7 @@ export default function App () {
         setCards(cards);
         if(disappear){
         setGameOver(0);
+        setTimeStarted(moment().add(30, 's'))
     }
         return cards;
     }
@@ -146,23 +149,23 @@ export default function App () {
     return (
         <div className="memory-app">
            <HomeScreen gameOver={gameOver} gamesWon={gamesWon} clickEvent={shuffleCards} />  
-<div className="cards">
+           <div className="main">
+             <div className="cards">
+ 
            {cards.map((thisCard, index)=> {
-            // if(index === 1) {
               return (
-          
-                
               <Card key={index} index={cardIndex++} clickEvent={pickCard} position={thisCard.position} type={thisCard.type}/> 
-            
-          
-
               )
-            // }
+    
           
             })}
        </div> 
 
-<Chronograph timeUp={setGameOver}/>
+<div className="game-details">
+<Chronograph timeUp={setGameOver} gameOver={gameOver} timeStarted={timeStarted}/>
+</div>
+</div>
+
          </div> 
     )
  

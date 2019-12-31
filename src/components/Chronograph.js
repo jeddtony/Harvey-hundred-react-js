@@ -7,24 +7,34 @@ export default function Chronograph(props) {
     const one_second = 1000
         , one_minute = one_second * 60
         , one_hour = one_minute * 60
-        , one_day = one_hour * 24
-    //   , startDate = new Date();
 
-    const [endDate, setEndDate] = useState(moment().add(30, 's'));
-    const [seconds, setSeconds] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [hours, setHours] = useState(0);
-    const [nowDate, setNowDate] = useState(new Date());
 
-    // const endTime = moment().subtract(2, m);
+    const [showAnimation, setShowAnimation] = useState(false);
+    const [seconds, setSeconds] = useState('0');
+    const [minutes, setMinutes] = useState('0');
+    const [hours, setHours] = useState('0');
+
 
     useEffect(() => {
+        setHours((hours.length === 1) ? '0' + hours : hours)
+        setMinutes((minutes.length === 1) ? '0' + minutes : minutes);
+        setSeconds((seconds.length === 1) ? '0' + seconds : seconds);
+
+       
+        if(!props.gameOver){
+            
+            setShowAnimation(true)
         tick();
+    }
+
         return () => {
             return false
         };
-    }, [])
+    }, [props.gameOver])
+
+
     const requestAnimationFrame = (function () {
+        // console.log('the end date is ', endDate)
         return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame ||
@@ -39,8 +49,8 @@ export default function Chronograph(props) {
       let now = moment();
         // setNowDate(new Date())
        
-        let elapsed = endDate - now;
-        if(now <= endDate  ) {
+        let elapsed = props.timeStarted - now;
+        if(now <= props.timeStarted  ) {
 
         let tempHours = ('' + Math.floor(elapsed / one_hour));
         let tempMinutes = ('' + Math.floor((elapsed % one_hour) / one_minute));
@@ -52,15 +62,14 @@ export default function Chronograph(props) {
 
         
        return requestAnimationFrame(tick);
+
         }
         props.timeUp(1);
+        setShowAnimation(false)
     
       
     }
 
-    // const padNumbers = (callbackFunction, state) => {
-    //     callbackFunction((String(state).length === 1) ? '0' + state : state);
-    // }
     return (
         <div className="timer-group">
             {/* <div className="timer hour">
@@ -71,10 +80,13 @@ export default function Chronograph(props) {
                 <div className="hand"><span></span></div>
                 <div className="hand"><span></span></div>
             </div> */}
-            <div className="timer second">
+            {showAnimation? (
+                <div className="timer second">
                 <div className="hand"><span></span></div>
                 <div className="hand"><span></span></div>
-            </div>
+                </div>
+            ) : ('')}
+            
             <div className="face">
                 <h2>Countdown </h2>
                 {/* <p id="lazy">00:00:00</p>   */}
