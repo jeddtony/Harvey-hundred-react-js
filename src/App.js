@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import _ from 'lodash';
 import Card from './components/Card';
 import HomeScreen from './components/HomeScreen';
+import Chronograph from './components/Chronograph';
 
 export default function App () {
     // const uniqueCards = ['pig','fish','cactus','corn','shroom'];
@@ -149,11 +150,11 @@ export default function App () {
            {cards.map((thisCard, index)=> {
             // if(index === 1) {
               return (
-                <>
+          
                 
               <Card key={index} index={cardIndex++} clickEvent={pickCard} position={thisCard.position} type={thisCard.type}/> 
             
-             </>
+          
 
               )
             // }
@@ -161,6 +162,7 @@ export default function App () {
             })}
        </div> 
 
+<Chronograph timeUp={setGameOver}/>
          </div> 
     )
  
